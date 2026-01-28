@@ -33,14 +33,6 @@ Hover over any text or element → click to edit
 
 Press Esc to exit edit mode
 
-#📁 File Structure
-Code
-Webedit-pro/
-├── manifest.json
-├── background.js
-├── content.js
-├── icons/
-└── README.md
 #🤝 Contributing
 Pull requests are welcome! For major changes, please open an issue first to discuss what you’d like to change.
 
