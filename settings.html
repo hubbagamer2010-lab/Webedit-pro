@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebEdit Pro - Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+      color: #e0e0e0;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    h1 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      color: #b0b0b0;
+      margin-bottom: 40px;
+      font-size: 16px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .section h2 {
+      color: #667eea;
+      margin-bottom: 20px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-box {
+      background: rgba(102, 126, 234, 0.1);
+      border-left: 4px solid #667eea;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .warning-box {
+      background: rgba(245, 87, 108, 0.1);
+      border-left: 4px solid #f5576c;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #e0e0e0;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: #e0e0e0;
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      transition: all 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .input-help {
+      font-size: 12px;
+      color: #888;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      margin-right: 10px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e0e0e0;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+    }
+
+    .status-message {
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-size: 14px;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .status-message.success {
+      background: rgba(76, 175, 80, 0.2);
+      border-left: 4px solid #4caf50;
+      color: #4caf50;
+    }
+
+    .status-message.error {
+      background: rgba(245, 87, 108, 0.2);
+      border-left: 4px solid #f5576c;
+      color: #f5576c;
+    }
+
+    .steps {
+      counter-reset: step-counter;
+      list-style: none;
+      padding: 0;
+    }
+
+    .steps li {
+      counter-increment: step-counter;
+      margin-bottom: 20px;
+      padding-left: 45px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .steps li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: white;
+    }
+
+    .api-key-display {
+      font-family: 'Courier New', monospace;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      word-break: break-all;
+      margin-top: 10px;
+      color: #4caf50;
+    }
+
+    code {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      color: #64b5f6;
+      font-size: 13px;
+    }
+
+    a {
+      color: #667eea;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .toggle-visibility {
+      margin-left: 10px;
+      padding: 6px 12px;
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 6px;
+      color: #e0e0e0;
+      cursor: pointer;
+    }
+
+    .toggle-visibility:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚙️ WebEdit Pro Settings</h1>
+    <p class="subtitle">Configure your AI-powered features</p>
+
+    <!-- API Key Section -->
+    <div class="section">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+        </svg>
+        AI Provider & API Key
+      </h2>
+
+      <div class="info-box">
+        <strong>💰 Save Money:</strong> Google Gemini and Groq offer generous FREE tiers! Perfect for this extension's usage.
+      </div>
+
+      <div class="warning-box">
+        <strong>⚠️ Important:</strong> AI features (Summarize & Translate) require an API key. Choose a FREE provider below!
+      </div>
+
+      <div class="form-group">
+        <label for="ai-provider">Select AI Provider</label>
+        <select id="ai-provider" style="width: 100%; padding: 12px 16px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: #e0e0e0; font-size: 14px; margin-top: 8px; cursor: pointer;">
+          <option value="gemini">🎁 Google Gemini (FREE - Recommended!)</option>
+          <option value="groq">⚡ Groq (FREE & Fast!)</option>
+          <option value="openai">🤖 OpenAI GPT ($5 free credits)</option>
+          <option value="anthropic">🧠 Anthropic Claude (Paid)</option>
+        </select>
+        <div class="input-help" id="provider-help">
+          Free tier: 60 requests/minute. Perfect for daily use! No credit card needed.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="api-key">
+          Your API Key
+          <button class="toggle-visibility" id="toggle-key">Show/Hide</button>
+        </label>
+        <input 
+          type="password" 
+          id="api-key" 
+          placeholder="Paste your API key here..."
+          autocomplete="off"
+        >
+        <div class="input-help" id="api-key-help">
+          Get your FREE key from <a href="https://ai.google.dev/" target="_blank" id="provider-link">https://ai.google.dev/</a>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="save-key">💾 Save API Key</button>
+      <button class="btn btn-danger" id="clear-key">🗑️ Clear API Key</button>
+
+      <div id="status-message" class="status-message"></div>
+    </div>
+
+    <!-- How to Get API Key -->
+    <div class="section">
+      <h2>📝 How to Get Your FREE API Key</h2>
+      
+      <div id="provider-instructions">
+        <!-- Gemini Instructions (default) -->
+        <div class="provider-guide" id="guide-gemini">
+          <h3 style="color: #667eea; margin-bottom: 1rem;">🎁 Google Gemini (100% FREE)</h3>
+          <ol class="steps">
+            <li>Visit <a href="https://ai.google.dev/" target="_blank">Google AI Studio</a></li>
+            <li>Sign in with your Google account</li>
+            <li>Click <strong>"Get API Key"</strong> button</li>
+            <li>Click <strong>"Create API Key"</strong></li>
+            <li>Copy your key (starts with <code>AIzaSy...</code>)</li>
+            <li>Paste it above and click <strong>"Save"</strong></li>
+          </ol>
+          <div class="info-box" style="margin-top: 20px;">
+            <strong>💡 Why Gemini?</strong><br>
+            • 100% FREE (no credit card needed!)<br>
+            • 60 requests per minute<br>
+            • High quality responses<br>
+            • Perfect for this extension
+          </div>
+        </div>
+
+        <!-- Groq Instructions -->
+        <div class="provider-guide" id="guide-groq" style="display: none;">
+          <h3 style="color: #667eea; margin-bottom: 1rem;">⚡ Groq (FREE & Super Fast)</h3>
+          <ol class="steps">
+            <li>Visit <a href="https://console.groq.com/" target="_blank">Groq Console</a></li>
+            <li>Sign up for a free account</li>
+            <li>Navigate to <strong>API Keys</strong> section</li>
+            <li>Click <strong>"Create API Key"</strong></li>
+            <li>Copy your key (starts with <code>gsk_...</code>)</li>
+            <li>Paste it above and save</li>
+          </ol>
+          <div class="info-box" style="margin-top: 20px;">
+            <strong>💡 Why Groq?</strong><br>
+            • FREE tier available<br>
+            • Extremely fast (fastest inference)<br>
+            • Good quality models<br>
+            • Easy to use
+          </div>
+        </div>
+
+        <!-- OpenAI Instructions -->
+        <div class="provider-guide" id="guide-openai" style="display: none;">
+          <h3 style="color: #667eea; margin-bottom: 1rem;">🤖 OpenAI ($5 Free Credits)</h3>
+          <ol class="steps">
+            <li>Visit <a href="https://platform.openai.com/" target="_blank">OpenAI Platform</a></li>
+            <li>Sign up for an account</li>
+            <li>Navigate to <strong>API Keys</strong></li>
+            <li>Click <strong>"Create new secret key"</strong></li>
+            <li>Copy your key (starts with <code>sk-...</code>)</li>
+            <li>Paste it above and save</li>
+          </ol>
+          <div class="info-box" style="margin-top: 20px;">
+            <strong>💡 About OpenAI:</strong><br>
+            • $5 free credits for new users<br>
+            • Very affordable (~$0.002 per request)<br>
+            • ChatGPT quality<br>
+            • Credit card required
+          </div>
+        </div>
+
+        <!-- Anthropic Instructions -->
+        <div class="provider-guide" id="guide-anthropic" style="display: none;">
+          <h3 style="color: #667eea; margin-bottom: 1rem;">🧠 Anthropic Claude</h3>
+          <ol class="steps">
+            <li>Visit <a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a></li>
+            <li>Sign up or log in to your account</li>
+            <li>Navigate to <strong>API Keys</strong> section</li>
+            <li>Click <strong>"Create Key"</strong> button</li>
+            <li>Copy your key (starts with <code>sk-ant-api03-...</code>)</li>
+            <li>Paste it above and save</li>
+          </ol>
+          <div class="info-box" style="margin-top: 20px;">
+            <strong>💡 About Claude:</strong><br>
+            • No free tier<br>
+            • Highest quality responses<br>
+            • ~$0.003 per request<br>
+            • Best for professional use
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Current Status -->
+    <div class="section">
+      <h2>✅ Current Status</h2>
+      
+      <div class="form-group">
+        <label>API Key Status:</label>
+        <div id="key-status" style="font-size: 14px; padding: 10px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+          Checking...
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Features Available:</label>
+        <div style="font-size: 14px; padding: 10px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+          ✅ Edit Mode<br>
+          ✅ Dark Mode<br>
+          ✅ Text Highlighting<br>
+          <span id="ai-status">⏳ AI Features (requires API key)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Info -->
+    <div class="section">
+      <h2>🔐 Security & Privacy</h2>
+      
+      <p style="line-height: 1.8; margin-bottom: 15px;">
+        <strong>How your API key is stored:</strong>
+      </p>
+      
+      <ul style="line-height: 2; margin-left: 20px; color: #b0b0b0;">
+        <li>Stored using Chrome's <code>chrome.storage.sync</code> API</li>
+        <li>Encrypted by Chrome's secure storage</li>
+        <li>Never transmitted except to Anthropic's API</li>
+        <li>Not accessible to websites you visit</li>
+        <li>Syncs across your Chrome devices (if sync enabled)</li>
+      </ul>
+
+      <div class="info-box" style="margin-top: 20px;">
+        <strong>🛡️ What gets sent to Anthropic:</strong><br>
+        Only the text you explicitly select and choose to summarize or translate. No other page content or personal data is sent.
+      </div>
+    </div>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>
